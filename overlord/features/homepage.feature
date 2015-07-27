@@ -3,6 +3,9 @@ Feature: Homepage
   As an evil overlord
   I should be able to set my own activation and deactivation codes
 
+
+
+##################### Happy ###################################################
   Scenario: Homepage bomb status check
     Given I am on "the starting page" of the bomb
     Then The page should say "Bomb Status: Inactive"
@@ -31,6 +34,7 @@ Feature: Homepage
     When I click the "Submit" button
     Then I should be on the activation page
 
+###################### Sad  ###################################################
   Scenario: Input non-numeric activation code
     Given I am on "the starting page" of the bomb
     And I fill in "activation" with "Password"
@@ -40,5 +44,18 @@ Feature: Homepage
   Scenario: Input non-numeric deactivation code
     Given I am on "the starting page" of the bomb
     And I fill in "deactivation" with "Password"
+    When I click the "Submit" button
+    Then The page should say "Invalid deactivation code."
+
+####################### Bad ###################################################
+  Scenario: Input garbage activation code
+    Given I am on "the starting page" of the bomb
+    And I fill in "activation" with "12apples"
+    When I click the "Submit" button
+    Then The page should say "Invalid activation code."
+
+  Scenario: Input garbage deactivation code
+    Given I am on "the starting page" of the bomb
+    And I fill in "deactivation" with "12apples"
     When I click the "Submit" button
     Then The page should say "Invalid deactivation code."

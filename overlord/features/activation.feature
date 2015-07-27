@@ -3,10 +3,7 @@ Feature: Activation
   As an evil overlord
   I should be able to input my specified activation code
 
-  Scenario: Attempt to jump directly to the activation page
-    Given I am on "the activation page" of the bomb
-    Then I should be on the starting page
-
+##################### Happy ###################################################
   Scenario: Correctly displays bomb status
     Given I am on "the activation page" of the bomb
     And I click the "Submit" button
@@ -24,6 +21,25 @@ Feature: Activation
     And I click the "Activate" button
     Then I should be on the deactivation page
 
+###################### Sad  ###################################################
+  Scenario: Incorrect activation code
+    Given I specified my "activation" code as ""
+    And I fill in "activation" with "1111"
+    And I click the "Activate" button
+    Then I should be on the activation page
+
+  Scenario: Incorrect non-numeric activation code (shouldn't accept for security)
+    Given I am on "the starting page" of the bomb
+    And I click the "Submit" button
+    And I fill in "activation" with "Hello"
+    And I click the "Activate" button
+    Then I should be on the activation page
+
+####################### Bad ###################################################
+  Scenario: Attempt to jump directly to the activation page
+    Given I am on "the activation page" of the bomb
+    Then I should be on the starting page
+
   Scenario: Double activation should have no effect
     Given I am on "the starting page" of the bomb
     And I click the "Submit" button
@@ -33,16 +49,3 @@ Feature: Activation
     And I fill in "activation" with "1234"
     And I click the "Activate" button
     Then I should be on the deactivation page
-
-  Scenario: Incorrect activation code
-    Given I specified my "activation" code as ""
-    And I fill in "activation" with "1111"
-    And I click the "Activate" button
-    Then I should be on the activation page
-
-   Scenario: Incorrect non-numeric activation code (shouldn't accept for security)
-     Given I am on "the starting page" of the bomb
-     And I click the "Submit" button
-     And I fill in "activation" with "Hello"
-     And I click the "Activate" button
-     Then I should be on the activation page

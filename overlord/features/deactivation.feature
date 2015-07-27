@@ -3,10 +3,7 @@ Feature: Deactivation
   As a potentially malevolent evil overlord
   I should be able to deactivate the bomb
 
-  Scenario: Should not be able to directly jump to the deactivation page
-    Given I am on "the deactivation page" of the bomb
-    Then I should be on the starting page
-
+##################### Happy ###################################################
   Scenario: Deactivation page status check
     Given I activated the bomb with the deactivation code ""
     Then The page should say "Bomb Status: Active"
@@ -35,7 +32,17 @@ Feature: Deactivation
       |  "1"  |
       |  "2"  |
 
+
+###################### Sad  ###################################################
   Scenario: Bomb should blow up after 3 unsuccessful deactivation attempts
     Given I activated the bomb with the deactivation code ""
     And I unsuccessfully deactivated the bomb "3" times
     Then I should be on the blowup page
+
+
+
+
+####################### Bad ###################################################
+  Scenario: Should not be able to directly jump to the deactivation page
+    Given I am on "the deactivation page" of the bomb
+    Then I should be on the starting page
